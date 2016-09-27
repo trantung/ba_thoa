@@ -44,14 +44,25 @@ class AdminController extends BaseController {
                 ->withInput(Input::except('password'));
         } else {
             //check email, password: true->dashboard, false->login form
-            dd(444);
+            $userData = array(
+                'email' => Input::get('email'),
+                'password' => Input::get('password')
+            );
+
+            if (Auth::attempt($userData)) {
+                return View::make('admin.layout.dashboard');
+            } else {
+                return Redirect::route('admin.login')
+                    ->withErrors('Đăng nhập không thành công')
+                    ->withInput(Input::except('password'));
+            }
         }
     }
+
     public function logout()
     {
         Auth::logout();
         return Redirect::route('admin.login');
     }
-
 }
 
