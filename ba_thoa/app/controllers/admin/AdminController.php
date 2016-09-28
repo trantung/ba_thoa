@@ -45,8 +45,8 @@ class AdminController extends BaseController {
         } else {
             //check email, password: true->dashboard, false->login form
             $userData = array(
-                'email' => Input::get('email'),
-                'password' => Input::get('password')
+                'email' => $input['email'],
+                'password' => $input['password'],
             );
 
             if (Auth::attempt($userData)) {
